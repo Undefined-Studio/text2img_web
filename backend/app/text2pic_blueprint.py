@@ -10,12 +10,19 @@ text2pic_blueprint = Blueprint(
 text2pic_api = Api(text2pic_blueprint)
 
 
-class Text2Pic(Resource):
+class Create(Resource):
     def post(self):
         json_data = request.get_json(force=True)
         text = json_data['data']
         return "Hello, World!"
 
 
-text2pic_api.add_resource(Text2Pic, '/create')
+class Result(Resource):
+    def get(self):
+        return "Hello, World!"
+
+
+text2pic_api.add_resource(Create, '/create')
+text2pic_api.add_resource(Result, "/result")
+
 
