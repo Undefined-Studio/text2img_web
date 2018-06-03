@@ -1,0 +1,19 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Arias",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel public/index.html"
+  },
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "parcel-bundler": "^1.8.1"
+  }
+}
