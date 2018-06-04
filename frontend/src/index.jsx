@@ -1,6 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
-import Routes from './Routes';
+import TopMenu from './components/TopMenu';
+import Home from './pages/Home';
+import Create from './pages/Create';
 
-ReactDOM.render(<Routes />, document.getElementById('root'));
+const Main = () => (
+  <main>
+    <Switch>
+      <Route path="/" component={Home} />
+      <Route path="/create" component={Create} />
+    </Switch>
+  </main>
+);
+
+const App = () => (
+  <div>
+    <header>
+      <TopMenu />
+    </header>
+    <Main />
+    <footer />
+  </div>
+);
+
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById('root')
+);
