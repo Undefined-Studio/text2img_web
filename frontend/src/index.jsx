@@ -9,8 +9,8 @@ import Create from './pages/Create';
 const Main = () => (
   <main>
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/create" component={Create} />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/create" component={Create} />
     </Switch>
   </main>
 );
