@@ -19,6 +19,7 @@ Markdown==2.6.11
 MarkupSafe==1.0
 matplotlib==2.2.2
 networkx==2.1
+nltk==3.3
 numpy==1.14.5
 pep8==1.7.1
 Pillow==5.1.0
@@ -34,6 +35,5 @@ scipy==1.1.0
 six==1.11.0
 tensorboard==1.8.0
 tensorflow==1.8.0
-tensorlayer==1.8.5
 termcolor==1.1.0
 Werkzeug==0.14.1

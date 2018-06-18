@@ -1,7 +1,7 @@
-from flask import Blueprint, jsonify, request
-from flask_restful import Resource, Api, reqparse
+from flask import Blueprint, request
+from flask_restful import Resource, Api
 from flask_cors import CORS
-from app.common.generator import Generator
+from app.utils import gen
 
 text2img_blueprint = Blueprint(
     'text2pic',
@@ -18,18 +18,9 @@ class Create(Resource):
     def post(self):
         json_data = request.get_json(force=True)
         text = json_data['data']
-        return "Hello, World!"
-
-        # gen = Generator()
-        # gen.run(text)
-
-
-class Result(Resource):
-    def get(self):
-        return "Hello, World!"
+        gen.run(text)
 
 
 text2img_api.add_resource(Create, '/create')
-text2img_api.add_resource(Result, "/result")
 
 

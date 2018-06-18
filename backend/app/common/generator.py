@@ -10,8 +10,16 @@ import os
 import re
 import pickle
 import string
+import nltk
 
-from app.utils import Generator_Param_Map
+# Generator相关参数Map
+Generator_Param_Map = {
+    'checkpoint_dir': 'checkpoint',
+    'vocab_dir': '_vocab.pickle',
+    'batch_size': 64,
+    'image_size': 64,
+    'z_dim': 512
+}
 
 
 class Generator:
@@ -28,7 +36,7 @@ class Generator:
         self.ni = int(np.ceil(np.sqrt(batch_size)))
 
         with open(vocab_dir, 'rb') as f:
-            self.vocab = pickle.j(f)
+            self.vocab = pickle.load(f)
 
         self.t_real_image = tf.placeholder('float32', [batch_size, image_size, image_size, 3], name='real_image')
 
@@ -44,10 +52,10 @@ class Generator:
         self.sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True))
         tl.layers.initialize_global_variables(self.sess)
 
-        net_rnn_name = os.path.join(checkpoint_dir, 'net_rnn.npz')
-        net_cnn_name = os.path.join(checkpoint_dir, 'net_cnn.npz')
-        net_g_name = os.path.join(checkpoint_dir, 'net_g.npz')
-        net_d_name = os.path.join(checkpoint_dir, 'net_d.npz')
+        net_rnn_name = os.path.join(checkpoint_dir, 'net_rnn.npz100.npz')
+        net_cnn_name = os.path.join(checkpoint_dir, 'net_cnn.npz100.npz')
+        net_g_name = os.path.join(checkpoint_dir, 'net_g.npz100.npz')
+        net_d_name = os.path.join(checkpoint_dir, 'net_d.npz100.npz')
 
         self.net_rnn_res = tl.files.load_and_assign_npz(sess=self.sess, name=net_rnn_name, network=net_rnn)
 
@@ -57,9 +65,9 @@ class Generator:
         self.sample_seed = np.random.normal(loc=0.0, scale=1.0, size=(sample_size, z_dim)).astype(np.float32)
 
     def run(self, sentences):
-        sample = sentences[0] * int(self.sample_size/self.ni)
-        for sentence in sentences[0:]:
-            sample += (sentence * int(self.sample_size/self.ni))
+        sample = [sentences[0]] * int(self.sample_size/self.ni)
+        for sentence in sentences[1:]:
+            sample += ([sentence] * int(self.sample_size/self.ni))
 
         for i, sentence in enumerate(sample):
             sentence = preprocess_caption(sentence)
@@ -71,7 +79,7 @@ class Generator:
             self.t_real_caption: sample,
             self.t_z: self.sample_seed})
 
-        save_images(img_gen, [self.ni, self.ni], 'samples/gen_samples/gen.png')
+        save_images(img_gen, [self.ni, self.ni], 'app/static/gen.png')
 
 
 def rnn_embed(input_seqs, is_train=True, reuse=False, return_embed=False):
