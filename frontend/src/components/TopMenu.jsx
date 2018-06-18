@@ -1,17 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Navbar, Nav, NavItem} from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const TopMenu = () => (
-  <div>
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/create">Create</Link>
-      </li>
-    </ul>
-  </div>
+  <Navbar>
+    <Navbar.Header>
+      <Navbar.Brand>
+        <Link to='/'>Text2Img</Link>
+      </Navbar.Brand>
+    </Navbar.Header>
+    <Nav>
+      <LinkContainer to='/create'>
+        <NavItem eventKey={1}>
+        Create
+        </NavItem>
+      </LinkContainer>
+    </Nav>
+  </Navbar>
 );
 
 export default TopMenu;

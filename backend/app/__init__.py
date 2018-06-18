@@ -1,11 +1,11 @@
 from flask import Flask
-from .text2pic_blueprint import text2pic_blueprint
+from .blueprints.text2img import text2img_blueprint
 
 
 def create_app():
     app = Flask(__name__)
 
-    app.register_blueprint(text2pic_blueprint)
+    app.register_blueprint(text2img_blueprint)
 
     return app
 
